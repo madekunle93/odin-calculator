@@ -84,7 +84,14 @@ equalsButton.addEventListener('click', () => {
 // To do the sums when equals is pressed
 function evaluate() {
     const secondOperand = parseFloat(currentDisplay);
-    const result = operate(operator, firstOperand, secondOperand);
+    let result = operate(operator, firstOperand, secondOperand);
+
+    // Manage display overflow
+    // Check if result is a number before rounding
+    if (typeof result === "number") {
+        result = Math.round(result * 100000) / 100000; // keep 5 decimal places
+      }
+
     currentDisplay = result.toString();
     display.textContent = currentDisplay;
     firstOperand = result;
@@ -110,4 +117,3 @@ function divide(a,b) {
     }
     return a / b;
 }
-
