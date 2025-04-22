@@ -31,3 +31,24 @@ function operate(operator, a, b) {
             return "Invalide operator";
     }
 }
+
+// Grab all number buttons and the display
+const display = document.getElementById('display');
+const numberButtons = document.querySelectorAll('.btn.number');
+
+// Start the calculator with '0'
+let currentDisplay = '0';
+
+// Show numbers in the display area
+numberButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const digit = button.textContent;
+        if (currentDisplay === '0') {
+            currentDisplay = digit;
+        } else {
+            currentDisplay += digit;
+        }
+
+        display.textContent = currentDisplay;
+    })
+})
