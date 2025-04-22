@@ -104,3 +104,10 @@ function clearCalculator() {
 }
 
 // Refine divide funtion
+function divide(a,b) {
+    if (b === 0) {
+        return "Can't divide by zero!"
+    }
+    return a / b;
+}
+
