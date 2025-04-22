@@ -43,8 +43,9 @@ let currentDisplay = '0';
 numberButtons.forEach(button => {
     button.addEventListener('click', () => {
         const digit = button.textContent;
-        if (currentDisplay === '0') {
+        if (currentDisplay === '0' || shouldResetDisplay) {
             currentDisplay = digit;
+            shouldResetDisplay = false;
         } else {
             currentDisplay += digit;
         }
@@ -52,3 +53,40 @@ numberButtons.forEach(button => {
         display.textContent = currentDisplay;
     })
 })
+
+// Grab operator & equals buttons
+const operatorButtons = document.querySelectorAll('.btn.operator');
+const equalsButton = document.getElementById('equals');
+
+let firstOperand = null;
+let operator = null;
+let shouldResetDisplay = false;
+
+// Set operator button logic
+operatorButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      if (operator !== null) {
+        evaluate();
+      }
+      operator = button.textContent;
+      firstOperand = parseFloat(currentDisplay);
+      shouldResetDisplay = true;
+    });
+  });
+
+// Set equals button logic
+equalsButton.addEventListener('click', () => {
+    if (operator === null || shouldResetDisplay) return;
+    evaluate();
+    operator = null;
+  });
+
+// To do the sums when equals is pressed
+function evaluate() {
+    const secondOperand = parseFloat(currentDisplay);
+    const result = operate(operator, firstOperand, secondOperand);
+    currentDisplay = result.toString();
+    display.textContent = currentDisplay;
+    firstOperand = result;
+    shouldResetDisplay = true;
+  }
