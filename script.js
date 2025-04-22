@@ -90,3 +90,17 @@ function evaluate() {
     firstOperand = result;
     shouldResetDisplay = true;
   }
+
+// Grab clear button
+const clearButton = document.getElementById('clear');
+clearButton.addEventListener('click', clearCalculator);
+// Reset everything
+function clearCalculator() {
+    currentDisplay = '0';
+    firstOperand = null;
+    operator = null;
+    shouldResetDisplay = false;
+    display.textContent = currentDisplay;
+}
+
+// Refine divide funtion
